@@ -6,6 +6,9 @@ Changes
 1.0.0-rc.2 (unreleased)
 -----------------------
 
+- Review api.content copy/move/rename functions to return the object
+  after change content. [rodfersou]
+
 - Package now includes a copy of the GPLv2 license as stated in the GNU
   General Public License documentation.
   [hvelarde]
