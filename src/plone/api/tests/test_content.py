@@ -292,8 +292,8 @@ class TestPloneApiContent(unittest.TestCase):
         container = self.portal
 
         # Move contact to the same folder (basically a rename)
-        nu-contact = api.content.move(source=self.contact, id='nu-contact')
-        assert container['about']['nu-contact'] and container['about']['nu-contact'] == nu-contact
+        nucontact = api.content.move(source=self.contact, id='nu-contact')
+        assert container['about']['nu-contact'] and container['about']['nu-contact'] == nucontact
         assert 'contact' not in container['about'].keys()
 
         # Move team page to portal root
@@ -303,20 +303,20 @@ class TestPloneApiContent(unittest.TestCase):
 
         # When moving objects we can change the id
         team = container['team']
-        our-team = api.content.move(source=team, target=self.about, id='our-team')
-        assert container['about']['our-team'] and container['about']['our-team'] == our-team
+        ourteam = api.content.move(source=team, target=self.about, id='our-team')
+        assert container['about']['our-team'] and container['about']['our-team'] == ourteam
         assert 'team' not in container.keys()
 
         # Test with safe_id option when moving content
         api.content.create(
             container=self.about, type='Link', id='link-to-blog')
-        link-to-blog-1 = api.content.move(
+        linktoblog1 = api.content.move(
             source=self.blog,
             target=self.about,
             id='link-to-blog',
             safe_id=True,
         )
-        assert container['about']['link-to-blog-1'] and container['about']['link-to-blog-1'] == link-to-blog-1
+        assert container['about']['link-to-blog-1'] and container['about']['link-to-blog-1'] == linktoblog1
         assert 'link-to-blog' not in container.keys()
 
         api.content.move(source=self.conference, id='conference-renamed')
@@ -347,19 +347,19 @@ class TestPloneApiContent(unittest.TestCase):
         container = self.portal
 
         # Rename contact
-        nu-contact = api.content.rename(obj=self.contact, new_id='nu-contact')
-        assert container['about']['nu-contact'] and container['about']['nu-contact'] == nu-contact
+        nucontact = api.content.rename(obj=self.contact, new_id='nu-contact')
+        assert container['about']['nu-contact'] and container['about']['nu-contact'] == nucontact
         assert 'contact' not in container['about'].keys()
 
         # Test with safe_id option when moving content
         api.content.create(
             container=self.about, type='Link', id='link-to-blog')
-        link-to-blog-1 = api.content.rename(
+        linktoblog1 = api.content.rename(
             obj=container['about']['link-to-blog'],
             new_id='link-to-blog',
             safe_id=True,
         )
-        assert container['about']['link-to-blog-1'] and container['about']['link-to-blog-1'] == link-to-blog-1
+        assert container['about']['link-to-blog-1'] and container['about']['link-to-blog-1'] == linktoblog1
         assert 'link-to-blog' not in container.keys()
 
         # Rename to existing id
@@ -371,12 +371,12 @@ class TestPloneApiContent(unittest.TestCase):
             obj=container['about']['link-to-blog'],
             new_id='link-to-blog-1',
         )
-        link-to-blog-1-1 = api.content.rename(
+        linktoblog11 = api.content.rename(
             obj=container['about']['link-to-blog'],
             new_id='link-to-blog-1',
             safe_id=True,
         )
-        assert container['about']['link-to-blog-1-1'] and container['about']['link-to-blog-1-1'] == link-to-blog-1-1
+        assert container['about']['link-to-blog-1-1'] and container['about']['link-to-blog-1-1'] == linktoblog11
         assert 'link-to-blog' not in container.keys()
 
     def test_copy_constraints(self):
@@ -402,20 +402,20 @@ class TestPloneApiContent(unittest.TestCase):
         assert container['about']['team'] and container['about']['team'] != team  # old content still available
 
         # When copying objects we can change the id
-        our-team = api.content.copy(source=self.team, target=self.about, id='our-team')
-        assert container['about']['our-team'] and container['about']['our-team'] == our-team
+        ourteam = api.content.copy(source=self.team, target=self.about, id='our-team')
+        assert container['about']['our-team'] and container['about']['our-team'] == ourteam
 
         # Test the safe_id option when moving content
         api.content.create(
             container=self.about, type='Link', id='link-to-blog')
 
-        link-to-blog-1 = api.content.copy(
+        linktoblog1 = api.content.copy(
             source=self.blog,
             target=self.about,
             id='link-to-blog',
             safe_id=True,
         )
-        assert container['about']['link-to-blog-1'] and container['about']['link-to-blog-1'] == link-to-blog-1
+        assert container['about']['link-to-blog-1'] and container['about']['link-to-blog-1'] == linktoblog1
 
         # Copy folderish content under target
         about = api.content.copy(source=container.about, target=container.events)
