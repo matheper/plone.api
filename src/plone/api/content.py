@@ -174,7 +174,9 @@ def move(source=None, target=None, id=None, safe_id=False):
         target = source
 
     if id:
-        rename(obj=target[source_id], new_id=id, safe_id=safe_id)
+        return rename(obj=target[source_id], new_id=id, safe_id=safe_id)
+    else:
+        return target[source_id]
 
 
 @required_parameters('obj', 'new_id')
@@ -201,6 +203,7 @@ def rename(obj=None, new_id=None, safe_id=False):
         new_id = chooser.chooseName(new_id, obj)
 
     obj.aq_parent.manage_renameObject(obj_id, new_id)
+    return obj.aq_parent[new_id] # which is better.. this way or just return obj will do the job? /me need to test it
 
 
 @required_parameters('source')
@@ -233,7 +236,9 @@ def copy(source=None, target=None, id=None, safe_id=False):
     target.manage_pasteObjects(source.aq_parent.manage_copyObjects(source_id))
 
     if id:
-        rename(obj=target[source_id], new_id=id, safe_id=safe_id)
+        return rename(obj=target[source_id], new_id=id, safe_id=safe_id)
+    else:
+        return target[source_id]
 
 
 @required_parameters('obj')
